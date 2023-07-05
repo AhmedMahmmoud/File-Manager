@@ -1,0 +1,87 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+
+namespace FileManager
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog1.ShowDialog();
+            textBox1.Text = folderBrowserDialog1.SelectedPath;
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            bool exsists = Directory.Exists(textBox1.Text + "\\" + textBox2.Text);
+            if (!exsists)
+            {
+                Directory.CreateDirectory(textBox1.Text + "\\" + textBox2.Text);
+            }
+            else
+            {
+                MessageBox.Show("Folder is already exsist ...!","Create Folder");
+                return;
+            }
+
+            MessageBox.Show("Done","Create Folder");
+        }
+
+        private void btnRename_Click(object sender, EventArgs e)
+        {
+            bool exsists = Directory.Exists(textBox1.Text);
+            if (exsists)
+            {
+                Directory.Move(textBox1.Text, textBox2.Text);
+            }
+            MessageBox.Show("Done", "Rename Folder");
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            Directory.Delete(textBox1.Text, true);
+            MessageBox.Show("Done", "Delete Folder");
+        }
+
+        private void btnMove_Click(object sender, EventArgs e)
+        {
+            string source = textBox1.Text;
+            string destination = textBox2.Text;
+            bool exsists = Directory.Exists(source);
+            if (exsists)
+            {
+                Directory.CreateDirectory(destination);
+                Directory.Delete(source, true);
+            }
+            MessageBox.Show("Done", "Move Folder");
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageBox.Show("Engineer Asmaa Naguib", "Message to");
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MessageBox.Show("Thank you for your effort and I wish you a happy life");
+        }
+    }
+}
